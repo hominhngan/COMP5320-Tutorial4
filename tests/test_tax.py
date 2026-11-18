@@ -42,63 +42,74 @@ class TestCalculateDeduction(unittest.TestCase):
 
     def test_full_low_income_supplement(self) -> None:
         """TODO 1: Taxpayer earning <= $18,200 qualifies for $700 deduction."""
-        self.fail("TODO 1: implement this test")
         # Arrange
-        # TODO: Set up inputs where income <= 18_200 (age < 67, has_spouse=False, disabled=False)
+        income = 15_000.0
+        age = 30
+        has_spouse = False
+        disabled = False
 
         # Act
-        # TODO: Call calculate_deduction with the arranged inputs
+        result = calculate_deduction(income, age, has_spouse, disabled)
 
         # Assert
-        # TODO: Assert that result equals 700.0
+        self.assertEqual(result, 700.0)
 
     def test_senior_supplement(self) -> None:
         """TODO 2: Taxpayer aged >= 67 qualifies for $400 supplement."""
-        self.fail("TODO 2: implement this test")
         # Arrange
-        # TODO: Set up inputs where age >= 67 (income > 37k, has_spouse=False, disabled=False)
+        income = 50_000.0
+        age = 70
+        has_spouse = False
+        disabled = False
 
         # Act
-        # TODO: Call calculate_deduction with the arranged inputs
+        result = calculate_deduction(income, age, has_spouse, disabled)
 
         # Assert
-        # TODO: Assert that result equals 400.0 (and optionally assertGreater(result, 0))
+        self.assertEqual(result, 400.0)
+        self.assertGreater(result, 0)
 
     def test_spouse_offset(self) -> None:
         """TODO 3: Taxpayer claiming spouse offset qualifies for $200 offset."""
-        self.fail("TODO 3: implement this test")
         # Arrange
-        # TODO: Set up inputs where only has_spouse is True (income > 37k, age < 67, disabled=False)
+        income = 50_000.0
+        age = 30
+        has_spouse = True
+        disabled = False
 
         # Act
-        # TODO: Call calculate_deduction with the arranged inputs
+        result = calculate_deduction(income, age, has_spouse, disabled)
 
         # Assert
-        # TODO: Assert that result equals 200.0
+        self.assertEqual(result, 200.0)
 
     def test_disability_supplement(self) -> None:
         """TODO 4: Taxpayer claiming disability supplement qualifies for $600 supplement."""
-        self.fail("TODO 4: implement this test")
         # Arrange
-        # TODO: Set up inputs where only disabled is True (income > 37k, age < 67, has_spouse=False)
+        income = 50_000.0
+        age = 30
+        has_spouse = False
+        disabled = True
 
         # Act
-        # TODO: Call calculate_deduction with the arranged inputs
+        result = calculate_deduction(income, age, has_spouse, disabled)
 
         # Assert
-        # TODO: Assert that result equals 600.0
+        self.assertEqual(result, 600.0)
 
     def test_all_supplements_combined(self) -> None:
         """TODO 5: Taxpayer qualifies for every supplement: 700 + 400 + 200 + 600 = 1900."""
-        self.fail("TODO 5: implement this test")
         # Arrange
-        # TODO: Set up inputs where all supplements apply (income <= 18_200, age >= 67, has_spouse=True, disabled=True)
+        income = 15_000.0
+        age = 70
+        has_spouse = True
+        disabled = True
 
         # Act
-        # TODO: Call calculate_deduction with the arranged inputs
+        result = calculate_deduction(income, age, has_spouse, disabled)
 
         # Assert
-        # TODO: Assert that result is almost equal to 1_900.0 using self.assertAlmostEqual(result, 1_900.0, places=2)
+        self.assertAlmostEqual(result, 1_900.0, places=2)
 
     # =========================================================================
     # PART B: Measure and Close Coverage Gaps
@@ -114,24 +125,30 @@ class TestCalculateDeduction(unittest.TestCase):
 
     def test_negative_income_raises_value_error(self) -> None:
         """TODO 6: Negative income must raise ValueError('Income cannot be negative')."""
-        self.fail("TODO 6: implement this test")
         # Arrange
-        # TODO: Set up inputs where income < 0 (e.g., income = -500.0, age = 40, has_spouse=False, disabled=False)
+        income = -500.0
+        age = 40
+        has_spouse = False
+        disabled = False
 
         # Act & Assert
-        # TODO: Use with self.assertRaisesRegex(ValueError, "cannot be negative") and call calculate_deduction inside the block
+        with self.assertRaisesRegex(ValueError, "cannot be negative"):
+            calculate_deduction(income, age, has_spouse, disabled)
 
     def test_mid_income_partial_supplement(self) -> None:
         """TODO 7: Income between $18,200 and $37,000 gets $300 supplement."""
-        self.fail("TODO 7: implement this test")
         # Arrange
-        # TODO: Set up inputs where income is between 18_200 and 37_000 (age < 67, has_spouse=False, disabled=False)
+        income = 25_000.0
+        age = 40
+        has_spouse = False
+        disabled = False
 
         # Act
-        # TODO: Call calculate_deduction with the arranged inputs
+        result = calculate_deduction(income, age, has_spouse, disabled)
 
         # Assert
-        # TODO: Assert that result equals 300.0 (and optionally assertLess(result, 700.0))
+        self.assertEqual(result, 300.0)
+        self.assertLess(result, 700.0)
 
 
 if __name__ == "__main__":
